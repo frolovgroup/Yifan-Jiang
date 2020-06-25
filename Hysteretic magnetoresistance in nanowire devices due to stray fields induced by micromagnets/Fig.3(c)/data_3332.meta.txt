@@ -1,0 +1,20 @@
+1
+-1.000000e+01
+-1.000000e+01
+dac2 (Vbias)
+401
+5.000000e-01
+-5.000000e-01
+magnet (B(T))
+1
+0.000000e+00
+0.000000e+00
+z_parameter (none)
+3
+processed data1
+4
+Keithley 1
+5
+processed data2
+6
+Keithley 2

@@ -1,0 +1,58 @@
+Filename: data_3345.dat
+Timestamp: Tue May 22 18:13:11 2018
+
+Instrument: ivvi
+	dac1: 0.0
+	dac2: -10.0
+	dac3: 0.0
+	dac4: 0.0
+	dac5: 10.0
+	dac6: 0.0
+	dac7: 0.0
+	dac8: 0.0
+Instrument: keithley1
+	autorange: False
+	autozero: False
+	averaging: False
+	averaging_count: 10
+	averaging_type: moving
+	digits: 7
+	display: False
+	mode: VOLT:DC
+	nplc: 1.0
+	range: 10.0
+	readlastval: 0.00631829184
+	readnextval: None
+	readval: None
+	trigger_continuous: True
+	trigger_count: 0
+	trigger_delay: 0.0
+	trigger_source: IMM
+	trigger_timer: 0.1
+Instrument: magnet
+	activity: 4
+	current: 0.0
+	current_limit_lower: -150.0
+	current_limit_upper: 149.99
+	current_setpoint: -2.484
+	field: -0.5
+	field_setpoint: -0.5
+	heater_current: 20.0
+	lead_resistance: 40.3
+	magnet_current: 1.09
+	magnet_inductance: 56.1
+	mode: 1
+	mode2: None
+	persistent_current: 0.0
+	persistent_field: 0.0
+	polarity: Desired: Positive, Magnet: Positive, Commanded: Positive, Both contactors closed
+	remote_status: 3
+	sweeprate_current: 1.0
+	sweeprate_field: 0.201
+	switch_heater: 0
+	system_status: 1
+	system_status2: 0
+	trip_current: 0.0
+	trip_field: 0.0
+	voltage: -0.12
+	voltage_limit: 3.5

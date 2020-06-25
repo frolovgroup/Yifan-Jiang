@@ -1,0 +1,6 @@
+Vbias 1V/10mV
+
+Vgate 1V/30V
+
+Current 1A/10^6A
+Voltage 1V/1V
