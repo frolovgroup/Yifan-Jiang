@@ -1,0 +1,20 @@
+51
+9.500000e+01
+9.000000e+01
+dac2 (Vgate)
+1
+0.000000e+00
+0.000000e+00
+y_parameter (none)
+1
+0.000000e+00
+0.000000e+00
+z_parameter (none)
+4
+lockin 1
+5
+Keithley 1
+6
+Keithley 2
+7
+lockin 2

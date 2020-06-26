@@ -1,0 +1,120 @@
+Filename: data_1117.dat
+Timestamp: Sat Dec 14 20:04:37 2019
+
+Instrument: ivvi
+	dac1: 100.0
+	dac10: 0.0
+	dac11: 0.0
+	dac12: 0.0
+	dac13: 0.0
+	dac14: 0.0
+	dac15: 0.0
+	dac16: 0.0
+	dac2: 50.0
+	dac3: 0.0
+	dac4: 0.0
+	dac5: 0.0
+	dac6: 0.0
+	dac7: 0.0
+	dac8: 0.0
+	dac9: 0.0
+	pol_dacrack1: BIP
+	pol_dacrack2: BIP
+	pol_dacrack3: BIP
+	pol_dacrack4: BIP
+Instrument: keithley1
+	autorange: False
+	autozero: False
+	averaging: False
+	averaging_count: 10
+	averaging_type: moving
+	digits: 7
+	display: False
+	mode: VOLT:DC
+	nplc: 1.0
+	range: 10.0
+	readlastval: 0.0772427443
+	readnextval: None
+	readval: None
+	trigger_continuous: True
+	trigger_count: 0
+	trigger_delay: 0.0
+	trigger_source: IMM
+	trigger_timer: 0.1
+Instrument: keithley2
+	autorange: False
+	autozero: False
+	averaging: False
+	averaging_count: 10
+	averaging_type: moving
+	digits: 7
+	display: False
+	mode: VOLT:DC
+	nplc: 1.0
+	range: 10.0
+	readlastval: 5.3149436e-05
+	readnextval: None
+	readval: None
+	trigger_continuous: True
+	trigger_count: 0
+	trigger_delay: 0.0
+	trigger_source: IMM
+	trigger_timer: 0.1
+Instrument: lockin1
+	P: 134.658
+	R: 0.00824839
+	X: -0.000552658
+	Y: 0.000559811
+	amplitude: 1.0
+	dynamic: 1 (Normal)
+	frequency: 77.77
+	mode: None
+	out1: None
+	out2: None
+	out3: None
+	out4: None
+	phase: 0.0
+	sensitivity: 19 (5mV)
+	slope: 2 (18 dB)
+	status: 00000001
+	tau: 8 (100ms)
+Instrument: lockin2
+	P: 45.0
+	R: 6.38331e-06
+	X: 0.0
+	Y: 0.0
+	amplitude: 0.004
+	dynamic: 1 (Normal)
+	frequency: 1000.0
+	mode: None
+	out1: None
+	out2: None
+	out3: None
+	out4: None
+	phase: 0.0
+	sensitivity: 19 (5mV)
+	slope: 1 (12 dB)
+	status: 00001000
+	tau: 9 (300ms)
+Instrument: magnet
+	current: 0.0002
+	error: None
+	field: -0.19994
+	pSwitch: False
+	persistent: False
+	quench: False
+	rampRate: 0.001
+	rampState: 2
+	setPoint: 0.0
+	units: 1.0
+Instrument: magnetX
+	current: -0.0
+	error: None
+	field: -0.0
+	pSwitch: False
+	persistent: False
+	quench: False
+	rampRate: 0.001
+	rampState: 2
+	setPoint: 0.0
+	units: None
