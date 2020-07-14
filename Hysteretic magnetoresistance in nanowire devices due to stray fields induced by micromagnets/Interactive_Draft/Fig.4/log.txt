@@ -1,0 +1,198 @@
+//output directory: C:\Users\Frolov Labuser\Desktop\Yifan\mumax3.9.1_windows - Yifan\UU3.out/
+cellsize := 10e-9
+SetGridsize(300, 512, 16)
+SetCellsize(cellsize, cellsize, cellsize)
+EdgeSmooth = 8
+wire_diameter := 100e-9
+diagnal := wire_diameter / cos(30*pi/180)
+xb1 := 0.15e-6
+yb1 := 4.5e-6
+zb1 := 40e-9
+xb2 := 0.30e-6
+yb2 := 3.0e-6
+zb2 := 40e-9
+x_distance := 0.3e-6
+z_distance := 0.5 * (wire_diameter - zb1)
+yextra := 10e-9
+x_trans := cos(30*pi/180)*diagnal/2 + diagnal/4
+y_trans := -0.5*(yb1*cos(20*pi/180)) - diagnal/2 + yextra
+xys := (0.5*xb1+x_distance+0.5*xb2)*tan(20*pi/180) + 0.5*(yb1-yb2) - (150e-9)
+a := Cuboid(xb1, yb1, zb1).RotZ(-20*pi/180).Transl(-0.5*(0.5*xb1+x_distance+0.5*xb2)/cos(20*pi/180), 0, -z_distance)
+b := Cuboid(xb2, yb2, zb2).RotZ(-20*pi/180).Transl(0.5*(0.5*xb1+x_distance+0.5*xb2)/cos(20*pi/180)-xys*sin(20*pi/180), -xys*cos(20*pi/180), -z_distance)
+a = a.Transl(0.5*(0.5*xb1+x_distance+0.5*xb2)/cos(20*pi/180)+0.5*yb1*sin(20*pi/180)-(500e-9)+0.5*xb1*cos(20*pi/180), 0, 0)
+b = b.Transl(0.5*(0.5*xb1+x_distance+0.5*xb2)/cos(20*pi/180)+0.5*yb1*sin(20*pi/180)-(500e-9)+0.5*xb1*cos(20*pi/180), 0, 0)
+f := Cuboid(diagnal/2, diagnal/2, inf).Transl(x_trans, 0, 0).RotZ(-60 * pi / 180)
+g := Cuboid(diagnal/2, diagnal/2, inf).Transl(x_trans, 0, 0).RotZ(-120 * pi / 180)
+h := Cuboid(diagnal/2, diagnal/2, inf).Transl(x_trans, 0, 0).RotZ(-180 * pi / 180)
+i := Cuboid(diagnal/2, diagnal/2, inf).Transl(x_trans, 0, 0).RotZ(-240 * pi / 180)
+k := Cuboid(diagnal/2, diagnal/2, inf).Transl(x_trans, 0, 0).RotZ(-300 * pi / 180)
+l := Cuboid(diagnal/2, diagnal/2, inf).Transl(x_trans, 0, 0).RotZ(-0 * pi / 180)
+hax := f.add(g).add(h).add(i).add(k).add(l)
+hax = hax.Transl(0, y_trans, 0).RotY(-90 * pi / 180)
+length := 1000e-9
+width_cross_section := 10e-9
+xmin := -500e-9
+xmax := 500e-9
+count_min := 0e-9
+count_max := length - width_cross_section
+count_step := cellsize
+counter := count_min
+TableAdd(B_demag.Region(4))
+TableAddVar(counter, "Counter", "No unit")
+nanowire := Cylinder(diagnal, length).Transl(0, y_trans, 0).RotY(-90 * pi / 180)
+ainter := a.intersect(nanowire)
+binter := b.intersect(nanowire)
+a = a.sub(ainter)
+b = b.sub(binter)
+aextra := ainter.Transl(0, 0, wire_diameter)
+bextra := binter.Transl(0, 0, wire_diameter)
+MicM := a.add(b).add(aextra).add(bextra)
+SetGeom(nanowire.sub(hax).add(MicM))
+saveas(geom, "rect")
+DefRegion(1, MicM)
+m.SetRegion(1, Uniform(0, 1, 0))
+Msat.SetRegion(1, 1.44e6)
+Aex.SetRegion(1, 30e-12)
+anisU.SetRegion(1, vector(0, 1, 0))
+Ku1.SetRegion(1, 4.1e-1)
+Ku2.SetRegion(1, 1.4e-1)
+alpha.SetRegion(1, 0.01)
+Temp = 0.04
+Bmax := 0.075
+B_ext = vector(Bmax*sin(20*pi/180), Bmax*cos(20*pi/180), 0)
+relax()
+MinimizerStop = 1e-6
+minimize()
+for z := count_min; z <= count_max; z += count_step {
+	counter = z
+	length_left_part := counter
+	length_right_part := length - counter - width_cross_section
+	x_trans_left_part := xmin + counter/2
+	x_trans_right_part := counter/2 + width_cross_section/2
+	x_trans_cross_section := xmin + counter + width_cross_section/2
+	c := Cylinder(diagnal, length_left_part).RotY(-90*pi/180).Transl(x_trans_left_part, y_trans, 0)
+	d := Cylinder(diagnal, length_right_part).RotY(-90*pi/180).Transl(x_trans_right_part, y_trans, 0)
+	cross_section := Cylinder(diagnal, width_cross_section).RotY(-90*pi/180).Transl(x_trans_cross_section, y_trans, 0)
+	print(counter)
+	DefRegion(2, c.sub(hax))
+	m.SetRegion(2, Uniform(0, 0, 0))
+	Msat.SetRegion(2, 0)
+	Aex.SetRegion(2, 0)
+	anisU.SetRegion(2, vector(0, 0, 0))
+	Ku1.SetRegion(2, 0)
+	Ku2.SetRegion(2, 0)
+	DefRegion(3, d.sub(hax))
+	m.SetRegion(3, Uniform(0, 0, 0))
+	Msat.SetRegion(3, 0)
+	Aex.SetRegion(3, 0)
+	anisU.SetRegion(3, vector(0, 0, 0))
+	Ku1.SetRegion(3, 0)
+	Ku2.SetRegion(3, 0)
+	DefRegion(4, cross_section.sub(hax))
+	m.SetRegion(4, Uniform(0, 0, 0))
+	Msat.SetRegion(4, 0)
+	Aex.SetRegion(4, 0)
+	anisU.SetRegion(4, vector(0, 0, 0))
+	Ku1.SetRegion(4, 0)
+	Ku2.SetRegion(4, 0)
+	tablesave()
+}
+//0
+//1e-08
+//2e-08
+//3.0000000000000004e-08
+//4e-08
+//5e-08
+//6e-08
+//6.999999999999999e-08
+//7.999999999999999e-08
+//8.999999999999999e-08
+//9.999999999999998e-08
+//1.0999999999999998e-07
+//1.2e-07
+//1.3e-07
+//1.4e-07
+//1.5000000000000002e-07
+//1.6000000000000003e-07
+//1.7000000000000004e-07
+//1.8000000000000005e-07
+//1.9000000000000006e-07
+//2.0000000000000007e-07
+//2.1000000000000008e-07
+//2.200000000000001e-07
+//2.300000000000001e-07
+//2.400000000000001e-07
+//2.500000000000001e-07
+//2.600000000000001e-07
+//2.700000000000001e-07
+//2.800000000000001e-07
+//2.9000000000000014e-07
+//3.0000000000000015e-07
+//3.1000000000000016e-07
+//3.2000000000000017e-07
+//3.300000000000002e-07
+//3.400000000000002e-07
+//3.500000000000002e-07
+//3.600000000000002e-07
+//3.700000000000002e-07
+//3.800000000000002e-07
+//3.9000000000000024e-07
+//4.0000000000000025e-07
+//4.1000000000000026e-07
+//4.2000000000000027e-07
+//4.300000000000003e-07
+//4.400000000000003e-07
+//4.500000000000003e-07
+//4.600000000000003e-07
+//4.700000000000003e-07
+//4.800000000000003e-07
+//4.900000000000003e-07
+//5.000000000000003e-07
+//5.100000000000003e-07
+//5.200000000000003e-07
+//5.300000000000003e-07
+//5.400000000000003e-07
+//5.500000000000003e-07
+//5.600000000000004e-07
+//5.700000000000004e-07
+//5.800000000000004e-07
+//5.900000000000004e-07
+//6.000000000000004e-07
+//6.100000000000004e-07
+//6.200000000000004e-07
+//6.300000000000004e-07
+//6.400000000000004e-07
+//6.500000000000004e-07
+//6.600000000000005e-07
+//6.700000000000005e-07
+//6.800000000000005e-07
+//6.900000000000005e-07
+//7.000000000000005e-07
+//7.100000000000005e-07
+//7.200000000000005e-07
+//7.300000000000005e-07
+//7.400000000000005e-07
+//7.500000000000005e-07
+//7.600000000000006e-07
+//7.700000000000006e-07
+//7.800000000000006e-07
+//7.900000000000006e-07
+//8.000000000000006e-07
+//8.100000000000006e-07
+//8.200000000000006e-07
+//8.300000000000006e-07
+//8.400000000000006e-07
+//8.500000000000006e-07
+//8.600000000000007e-07
+//8.700000000000007e-07
+//8.800000000000007e-07
+//8.900000000000007e-07
+//9.000000000000007e-07
+//9.100000000000007e-07
+//9.200000000000007e-07
+//9.300000000000007e-07
+//9.400000000000007e-07
+//9.500000000000008e-07
+//9.600000000000008e-07
+//9.700000000000007e-07
+//9.800000000000006e-07
